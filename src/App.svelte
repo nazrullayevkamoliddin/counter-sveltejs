@@ -6,6 +6,21 @@
   $: blueWon = redScore <= 0;
   $: redWon = blueScore <= 0;
   $: gameOver = blueWon || redWon;
+
+  function handleStartGame(){
+    redScore = 20;
+    blueScore = 20;
+  }
+
+  function updateBlueScore(e) {
+    const updateScore = e.detail;
+    blueScore += updateScore
+  }
+
+  function updateRedScore(e) {
+    const updateScore = e.detail;
+    redScore += updateScore
+  }
 </script>
 
 <main>
@@ -13,6 +28,7 @@
   <div id="controls-container">
     <Player
       {gameOver}
+      on:point={updateBlueScore}
       fontColor="#0000AA"
       won={blueWon}
       winningText="Blue Wins"
@@ -20,13 +36,14 @@
     />
     <Player
       {gameOver}
+      on:point={updateRedScore}
       fontColor="#AA0000"
       won={redWon}
       winningText="Red Wins"
       score={redScore}
     />
   </div>
-  <button>Start Game</button>
+  <button on:click={handleStartGame}>Start Game</button>
 </main>
 
 <style>
